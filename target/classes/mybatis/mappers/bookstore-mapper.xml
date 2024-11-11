@@ -2,59 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-
 <mapper namespace="com.koreait.db.mapper.BookStoreMapper">
-<!--    2) <resultMap> : 전송하고 난 후 값의 처리 과정
-            id = select의 resultMap 값
-            type = select의 resultType 값
--->
     <resultMap id="bookStoreWithBookMap" type="com.koreait.db.dto.BookStoreDTO">
-
-<!--        <id> 태그에는 type에 적은 객체의 PK 속성을 작성해야 한다-->
-<!--        <result> PK이 아닌 모든 속성  -->
-<!--        property: 객체에 있는 변수명, column: SQL실행 결과의 열 이름-->
+        <!-- id 태그에는 type에 적은 객체의 PK 속성을 작성해야 한다       -->
+        <!-- property: 객체에 있는 변수명, column: SQL실행 결과의 열 이름       -->
         <id property="id" column="id" />
         <result property="name" column="bs_name"/>
-
-        <!--        -->
         <!-- book이라고 하는 변수에는  BookDTO객체 형태로 집어넣을거에요      -->
-<!--        autoMapping="true" 하면, 아래에 result 주지않은 속성도 다 알아서 처리해줌-->
-
-<!--        public class BookStoreDTO {-->
-<!--        private Integer id;-->
-<!--        private String name;-->
-<!--        private BookDTO book;       여기에 BookDTO부분이 밑에 association 매칭되는 부분-->
-<!--        }-->
-
-<!--        <association property="book" javaType="com.koreait.db.dto.BookDTO" autoMapping="true">&ndash;&gt;-->
-<!--            <id property="isbn" column="isbn" />-->
-<!--            <result property="name" column="name" />-->
-<!--            <result property="price" column="price" />-->
-<!--        </association>-->
-
-
-        <!--        -->
-        <!--        -->
-        <!--        -->
-
-<!--        private BookDTO book가 rivate List<BookDTO> book로 바뀌면서,-->
-<!--        코드가 아래와 같이 바뀜-->
         <collection property="book" ofType="com.koreait.db.dto.BookDTO" javaType="list" autoMapping="true">
             <id property="isbn" column="isbn" />
         </collection>
-
     </resultMap>
 
-
-<!--    1) <select> : 실제 전송할 쿼리
-resultMap="" 추가
-2)에서 세세하게 설정 -->
-    <select id="selectBookStoreWithBook" resultType="com.koreait.db.dto.BookStoreDTO" resultMap="bookStoreWithBookMap">
+    <select id="selectBookStoreWithBook" resultMap="bookStoreWithBookMap">
         SELECT BS.id, BS.name bs_name, B.*
         FROM book_store BS
         INNER JOIN book B
         ON BS.id = B.book_store_id
-        LIMIT 1
+        WHERE id = 1
     </select>
 </mapper>

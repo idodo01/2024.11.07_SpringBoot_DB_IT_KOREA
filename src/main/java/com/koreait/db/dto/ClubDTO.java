@@ -9,10 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class BookDTO {
-    private String isbn;
+public class ClubDTO {
     private String name;
-    private Integer price;
-    private AuthorDTO author; // 추가
-    private LocalDateTime publishDate;
+    private Integer roomNo;
+    private LocalDateTime createdAt;
 }
