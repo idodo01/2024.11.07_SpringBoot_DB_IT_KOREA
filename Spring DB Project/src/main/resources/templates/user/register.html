@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 가입</title>
+</head>
+<body>
+<h1>사용자 가입 페이지</h1>
+<fieldset>
+    <form action="/user/register" method="post">
+        <b>사용자명:</b> <input type="text" name="name">
+        <b>역할:</b>
+        <select name="role">
+            <option disabled selected>선택하세요</option>
+            <option value="normal">일반사용자</option>
+            <option value="admin">관리자</option>
+        </select>
+        <button>가입하기</button>
+    </form>
+</fieldset>
+<a href="/user/login">돌아가기</a>
+</body>
+</html>
+
+
+
+
+

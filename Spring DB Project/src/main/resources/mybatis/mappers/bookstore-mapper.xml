@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.db.mapper.BookStoreMapper">
+    <resultMap id="bookStoreWithBookMap" type="com.koreait.db.dto.BookStoreDTO">
+        <!-- id 태그에는 type에 적은 객체의 PK 속성을 작성해야 한다       -->
+        <!-- property: 객체에 있는 변수명, column: SQL실행 결과의 열 이름       -->
+        <id property="id" column="id" />
+        <result property="name" column="bs_name"/>
+        <!-- book이라고 하는 변수에는  BookDTO객체 형태로 집어넣을거에요      -->
+        <collection property="book" ofType="com.koreait.db.dto.BookDTO" javaType="list" autoMapping="true">
+            <id property="isbn" column="isbn" />
+        </collection>
+    </resultMap>
+
+    <select id="selectBookStoreWithBook" resultMap="bookStoreWithBookMap">
+        SELECT BS.id, BS.name bs_name, B.*
+        FROM book_store BS
+        INNER JOIN book B
+        ON BS.id = B.book_store_id
+        WHERE id = 1
+    </select>
+</mapper>

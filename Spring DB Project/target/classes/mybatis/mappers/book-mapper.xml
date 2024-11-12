@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.db.mapper.BookMapper">
+
+    <insert id="insertBookWithAuthor">
+        INSERT INTO book VALUES (#{isbn}, #{name}, #{price}, #{publishDate}, NULL, #{author.name})
+    </insert>
+
+
+    <select id="selectBookByPrice" resultType="com.koreait.db.dto.BookDTO">
+        SELECT * FROM book
+        WHERE price <![CDATA[ <= ]]> #{price}
+    </select>
+
+
+    <resultMap id="bookWithAuthorMap" type="com.koreait.db.dto.BookDTO" autoMapping="true">
+        <id property="isbn" column="isbn" />
+        <association property="author" javaType="com.koreait.db.dto.AuthorDTO" autoMapping="true">
+            <id property="name" column="author_name" />
+        </association>
+    </resultMap>
+
+    <select id="selectBookWithAuthor" resultType="BookDTO" resultMap="bookWithAuthorMap">
+        SELECT book.*, author.*, author.name AS 'author_name'
+        FROM book
+                 INNER JOIN author
+                            ON book.author_name = author.name
+        WHERE book.isbn = 'A1';
+    </select>
+
+
+    <resultMap id="authorWithBooksMap" type="com.koreait.db.dto.AuthorDTO">
+        <id property="name" column="name" />
+        <result property="age" column="age" />
+        <collection property="books" ofType="BookDTO" javaType="list" autoMapping="true">
+            <id property="isbn" column="isbn" />
+            <result property="name" column="book_name" />
+        </collection>
+    </resultMap>
+
+    <select id="selectAuthorWithBooks" resultType="com.koreait.db.dto.AuthorDTO" resultMap="authorWithBooksMap">
+        SELECT author.*, book.*, book.name 'book_name'
+        FROM author
+                 INNER JOIN book
+                            ON author.name = book.author_name
+        WHERE author.name = #{authorName}
+    </select>
+</mapper>
+
+
+
+
+
+
