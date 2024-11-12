@@ -28,7 +28,7 @@ public interface BookMapper {
 
     // 값을 하나하나 전달하지 않고 객체를 전달해서 객체에 있는 데이터를 사용하기
     // 변수 이름 그대로 적으면 된다
-    @Insert("INSERT INTO book VALUES (#{bookDTO.isbn}, #{bookDTO.name}, #{bookPrice}, #{bookDTO.publishDate})")
+    @Insert("INSERT INTO book VALUES (#{bookDTO.isbn}, #{bookDTO.name}, #{bookPrice}, #{bookDTO.publishDate}, NULL, NULL)")
     int insertBookDTOWithPrice(BookDTO bookDTO, int bookPrice);
 
     /********************************************************/

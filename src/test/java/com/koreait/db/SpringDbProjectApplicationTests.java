@@ -73,18 +73,18 @@ class SpringDbProjectApplicationTests {
     void insertBookTest() {
 //        bookMapper.insertBook("ABCD", 55454);
         BookDTO bookDTO = new BookDTO();
-        bookDTO.setIsbn("TEST_ISBN");
-        bookDTO.setPrice(55555);
+        bookDTO.setIsbn("TEST_abc");
+        bookDTO.setPrice(11111);
         bookDTO.setPublishDate(LocalDateTime.now());
-        bookDTO.setName("TEST_NAME");
+        bookDTO.setName("TEST_NAME11111");
         // 값들을 가지고 있는 객체 자체를 전달해서 INSERT
 //        bookMapper.insertBookDTO(bookDTO);
 
 //        bookDTO.setIsbn("TEST_ISBN22222");
 //        bookMapper.insertBookDTOWithPrice(bookDTO, 77777);
 
-        bookDTO.setIsbn("TEST_ISBN33333");
-        int result = bookMapper.insertBookDTOWithPrice(bookDTO, 77777);
+        bookDTO.setIsbn("TEST_ISBN11");
+        int result = bookMapper.insertBookDTOWithPrice(bookDTO, 11111);
         System.out.println(result);
 
 
